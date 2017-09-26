@@ -26,7 +26,7 @@ public class State{
             //Die Schleife geht rückwärts durch alle Felder und schaut ob die Bohnen entnommen werden können
             //Wenn ja, werden die Bohnen auf das zugeghörige Konto übertragen und das Feld auf 0 gesetzt
             //Beachte: -3%12==-3, Math.floorMod(-3,12)==9
-
+            //askdnakljdsasjd
             while(true){
                 check = Math.floorMod(check,12);
 	            if(board[check]==2||board[check]==4||board[check]==6){
