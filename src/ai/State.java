@@ -27,6 +27,7 @@ public class State{
             //Wenn ja, werden die Bohnen auf das zugeghörige Konto übertragen und das Feld auf 0 gesetzt
             //Beachte: -3%12==-3, Math.floorMod(-3,12)==9
             //askdnakljdsasjd
+            //asdölajshdöalsdh
             while(true){
                 check = Math.floorMod(check,12);
 	            if(board[check]==2||board[check]==4||board[check]==6){
