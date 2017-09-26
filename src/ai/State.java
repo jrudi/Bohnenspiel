@@ -17,8 +17,6 @@ public class State{
 		}
 
     public void move(int n,boolean myturn){
-
-	    if(n>0&&n<12){
 	        int n_amount = board[n];
 	        for(int i=n+1;n<n+1+n_amount;i++){
 	            board[i%12]++;
@@ -43,9 +41,6 @@ public class State{
 	                break;
                 }
             }
-        }else{
-	        System.out.println("TODO, keine ahnung was hier kommen könnte");
-        }
     }
 
     public int getSum(){
