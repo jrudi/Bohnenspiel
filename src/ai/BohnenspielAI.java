@@ -29,11 +29,42 @@ public class BohnenspielAI {
 		return index;
 	}
 
-	public int calculate(){
-	    //TODO hier suchalgorithmus implementieren
-	    return 0;
+    /**
+     * Anfang einer A-B-Pruning Methode
+     * TODO Knoten mit bester Heuristik wiederbekommen. Bisher wird nur dessen Heuristik-Wert returned.
+     *
+     * @param node Der Knoten der untersucht wird
+     * @param depth Die aktuell verbleibende Suchtiefe
+     * @param a bisheriges alpha
+     * @param b bisheriges beta
+     * @param max Soll Maximiert werden(eigener Zug) oder minimiert(gegnerischer Zug)
+     * @return der Heuristic Wert des behandelten Knotens, wenn er ein Leafknoten ist(Suchtiefe==0)
+     */
+    public int alphabeta(State node, int depth,int a,int b, boolean max) {
+        if (depth == 0 || node.isTerminal()) {
+            return node.getHeuristic();
+        }
+        int v = 0;
+        if (max) {
+            v = Integer.MIN_VALUE;
+            for (State child : node.getChildren()) {
+                v = Math.max(v, alphabeta(child, depth - 1, a, b, false));
+                a = Math.max(a, v);
+                if (b >= a) {
+                    break;
+                }
+            }
+        } else {
+            v = Integer.MAX_VALUE;
+            for (State child : node.getChildren()) {
+                v = Math.min(v, alphabeta(child, depth - 1, a, b, true));
+                b = Math.min(b, v);
+                if (b <= a) {
+                    break;
+                }
+
+            }
+        }
+        return v;
     }
-	
-
-
 }
