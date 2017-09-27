@@ -98,7 +98,7 @@ public class State{
      * @return
      */
     boolean isTerminal() {
-        return this.getSum()==0;
+        return this.myTurn && this.sumMyBeans()==0 || !this.myTurn && this.sumEnemyBeans()==0;
     }
 
     /**
@@ -121,14 +121,15 @@ public class State{
      * @return
      */
     private int sumEnemyBeans(){
-        int sum=0;
+        return 72-(this.myPoints+this.enemyPoints+this.sumMyBeans());
+    /*	int sum=0;
         int start=first?6:0;
 
         for(int i=start;i<start+6;i++){
             sum+=this.board[i];
         }
-
-        return sum;
+*/
+     //   return sum;
     }
 
     /**
