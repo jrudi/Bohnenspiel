@@ -15,16 +15,16 @@ public class BohnenspielAI {
 		int index = 0;
 		// have to choose the first move
         if(enemyIndex == 0){
-            current = new State();
+            current = new State(true);
         }else if (enemyIndex == -1) {
-			index = rand.nextInt(6) + 1;
+            //Vermutlich nur bei zweiter abfrage des Zustandes
 		}
 		// enemy acted and i have to react
 		else if (enemyIndex > 0 && enemyIndex <= 6) {
-			index = rand.nextInt(6) + 7;
+
 		}
 		else if (enemyIndex > 6 && enemyIndex <= 12) {
-			index = rand.nextInt(6) + 1;
+
 		}
 		return index;
 	}

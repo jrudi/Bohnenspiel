@@ -14,11 +14,11 @@ public class State{
      * erzeugt ein State-Objekt im Startzustand
      * TODO Spieler1 oder Spieler2 festlegen
      */
-	State(){
+	State(boolean f){
         myPoints=0;
 		enemyPoints=0;
-		myTurn=false;
-		first=false;
+		myTurn=f;
+		first=f;
         board = new int[]{6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6};
         parent = null;
 		}
@@ -31,11 +31,13 @@ public class State{
     private State(State parent, int move){
 	    this.myPoints=parent.myPoints;
 	    this.enemyPoints=parent.enemyPoints;
-	    this.myTurn=!parent.myTurn;
 	    this.first=parent.first;
 	    this.board= parent.board.clone();
 	    this.parent=parent;
-	    this.move(move);
+        this.myTurn=parent.myTurn;
+        this.move(move);
+        this.myTurn=!this.myTurn;
+
     }
 
     /**
@@ -94,7 +96,6 @@ public class State{
 
     /**
      * Zeigt an, ob Spiel fertig ist
-     * TODO Wenn ein Spieler keinen Zug mehr machen kann, ist das Spiel auch zuende
      * @return
      */
     boolean isTerminal() {
@@ -122,14 +123,6 @@ public class State{
      */
     private int sumEnemyBeans(){
         return 72-(this.myPoints+this.enemyPoints+this.sumMyBeans());
-    /*	int sum=0;
-        int start=first?6:0;
-
-        for(int i=start;i<start+6;i++){
-            sum+=this.board[i];
-        }
-*/
-     //   return sum;
     }
 
     /**
@@ -168,24 +161,18 @@ public class State{
     public String toString() {
         String s = board[11]+" | " + board[10]+" | " + board[9]+" | " + board[8]+" | " + board[7]+" | " + board[6];
         s+="\n" + board[0]+" | " + board[1]+" | " + board[2]+" | " + board[3]+" | " + board[4]+" | " + board[5];
-        s+="\n Player1: " + myPoints + ", Player2: " + enemyPoints + ", HEUR: " + this.getHeuristic();
+        s+="\n Player1: " + myPoints + ", Player2: " + enemyPoints + ", HEUR: " + this.getHeuristic() + ", Spieler" + (myTurn?"1":"2");
         return s;
 
     }
 
     public static void main(String[] args){
-        State s = new State();
-        s.makeAllMoves();
-        for(State x:s.children){
-            System.out.println(x);
+        State s = new State(true);
 
-        }
-        System.out.println("____");
-        State z = s.children.get(0);
-        z.makeAllMoves();
-        for(State x:z.children){
-            System.out.println(x);
-
+        for (int i = 0; i < 10; i++) {
+            System.out.println(s);
+            s.makeAllMoves();
+            s = s.children.get(0);
         }
     }
 }
