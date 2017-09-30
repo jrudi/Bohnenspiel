@@ -159,20 +159,32 @@ public class State{
      * @return
      */
     int getHeuristic() {
-      /*int nullFeld =0;
-      int gewonnen =500;
-      int verloren =-500;
-      int start=first?6:0;
-      for(int i =start; i<this.board.length;i++){
-        if(board[i]==0){
-          nullFeld+=1;
-        }
-      }
-      if(this.isTerminal()){
+    	 int nullFeld =0;
+         int gewonnen =500;
+         int verloren =-500;
+         int start=first?6:0;
+         for(int i =start; i<this.board.length;i++){
+           if(board[i]==0){
+             nullFeld+=1;
+           }
+         }
         
-      }
-     return  (sumMyBeans()-sumEnemyBeans())+nullFeld;*/
-      return myPoints*2 -enemyPoints;
+         if(enemyPoints>36){
+       	  return verloren;
+         }
+         if(myPoints>36){
+       	  return gewonnen;
+         }
+         if(enemyPoints>=26 && enemyPoints>=myPoints){
+       	  return 2*myPoints- enemyPoints-sumEnemyBeans()/2;
+         }
+         if(nullFeld>=4){
+       	  return -2*sumEnemyBeans()+myPoints-enemyPoints/2;
+         }
+         if(myPoints>=28){
+       	  return myPoints- enemyPoints/2-sumEnemyBeans();
+         }
+         return myPoints+2*nullFeld+sumMyBeans()-sumEnemyBeans();
 
     }
     
