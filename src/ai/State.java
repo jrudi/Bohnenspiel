@@ -99,7 +99,10 @@ public class State{
      * @return
      */
     boolean isTerminal() {
-        return this.myTurn && this.sumMyBeans()==0 || !this.myTurn && this.sumEnemyBeans()==0;
+      boolean terminal =  this.myTurn && this.sumMyBeans()==0 || !this.myTurn && this.sumEnemyBeans()==0;
+      System.out.println("Am Zug:"+this.myTurn+" | Verfuegbare Bohnen:"+this.sumMyBeans()+" | Gegnerische Verfuegbare Bohnen:" +this.sumEnemyBeans()+" | Summe der Bohnen auf dem Feld: "+this.getSum()+" | Spiel beendet:"+terminal);
+      System.out.println();
+        return terminal;
     }
 
     /**
@@ -122,7 +125,14 @@ public class State{
      * @return
      */
     private int sumEnemyBeans(){
-        return 72-(this.myPoints+this.enemyPoints+this.sumMyBeans());
+      int sum=0;
+      int start=first?6:0;
+
+          for(int i=start;i<start+6;i++){
+              sum+=this.board[i];
+          }
+
+      return sum;
     }
 
     /**
@@ -169,10 +179,13 @@ public class State{
     public static void main(String[] args){
         State s = new State(true);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             System.out.println(s);
             s.makeAllMoves();
-            s = s.children.get(0);
+          
+            if(!s.isTerminal()){
+            s = s.children.get(0);}
+            System.out.println(i);
         }
     }
 }
