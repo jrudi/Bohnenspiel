@@ -62,7 +62,7 @@ public class State{
             while(true){
                 check = Math.floorMod(check,12);
 	            if(board[check]==2||board[check]==4||board[check]==6){
-	                if(this.myTurn){
+	                if(!this.myTurn){
 	                    myPoints+=board[check];
                     }else{
 	                    enemyPoints+=board[check];
@@ -159,7 +159,7 @@ public class State{
      * @return
      */
     int getHeuristic() {
-      int nullFeld =0;
+      /*int nullFeld =0;
       int gewonnen =500;
       int verloren =-500;
       int start=first?6:0;
@@ -171,7 +171,8 @@ public class State{
       if(this.isTerminal()){
         
       }
-     return  (sumMyBeans()-sumEnemyBeans())+nullFeld;
+     return  (sumMyBeans()-sumEnemyBeans())+nullFeld;*/
+      return myPoints*2 -enemyPoints;
 
     }
     
