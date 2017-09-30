@@ -7,7 +7,6 @@ public class State{
 	private boolean myTurn;
 	private boolean first;
 	private int myPoints,enemyPoints;
-	private State parent;
 	private ArrayList<State> children;
 	public int lastMove;
 
@@ -21,7 +20,6 @@ public class State{
 		myTurn=f;
 		first=f;
         board = new int[]{6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6};
-        parent = null;
         lastMove = -1;
 		}
 
@@ -35,7 +33,6 @@ public class State{
 	    this.enemyPoints=parent.enemyPoints;
 	    this.first=parent.first;
 	    this.board= parent.board.clone();
-	    this.parent=parent;
         this.myTurn=parent.myTurn;
         this.move(move);
         this.myTurn=!this.myTurn;
