@@ -105,8 +105,8 @@ public class State{
      */
     boolean isTerminal() {
       boolean terminal =  this.myTurn && this.sumMyBeans()==0 || !this.myTurn && this.sumEnemyBeans()==0;
-      System.out.println("Am Zug:"+this.myTurn+" | Verfuegbare Bohnen:"+this.sumMyBeans()+" | Gegnerische Verfuegbare Bohnen:" +this.sumEnemyBeans()+" | Summe der Bohnen auf dem Feld: "+this.getSum()+" | Spiel beendet:"+terminal);
-      System.out.println();
+      //System.out.println("Am Zug:"+this.myTurn+" | Verfuegbare Bohnen:"+this.sumMyBeans()+" | Gegnerische Verfuegbare Bohnen:" +this.sumEnemyBeans()+" | Summe der Bohnen auf dem Feld: "+this.getSum()+" | Spiel beendet:"+terminal);
+      //System.out.println();
         return terminal;
     }
 
