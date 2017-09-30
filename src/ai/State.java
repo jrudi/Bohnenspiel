@@ -8,7 +8,7 @@ public class State{
 	private boolean first;
 	private int myPoints,enemyPoints;
 	private ArrayList<State> children;
-	public int lastMove;
+	public int lastMove,ctr;
 
     /**
      * erzeugt ein State-Objekt im Startzustand
@@ -21,6 +21,7 @@ public class State{
 		first=f;
         board = new int[]{6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6};
         lastMove = -1;
+        ctr=0;
 		}
 
     /**
@@ -32,6 +33,7 @@ public class State{
 	    this.myPoints=parent.myPoints;
 	    this.enemyPoints=parent.enemyPoints;
 	    this.first=parent.first;
+	    this.ctr=parent.ctr+1;
 	    this.board= parent.board.clone();
         this.myTurn=!parent.myTurn;
         this.move(move);
@@ -45,12 +47,13 @@ public class State{
      */
     private void move(int n){
 	        int n_amount = board[n];
-	        for(int i=n+1;i<n+1+n_amount;i++){
+            board[n]=0;
+
+        for(int i=n+1;i<n+1+n_amount;i++){
                 board[i%12]++;
 
             }
             int check = n+n_amount%12;
-            board[n]=0;
 
             //Die Schleife geht rückwärts durch alle Felder und schaut ob die Bohnen entnommen werden können
             //Wenn ja, werden die Bohnen auf das zugeghörige Konto übertragen und das Feld auf 0 gesetzt
@@ -173,7 +176,8 @@ public class State{
     public String toString() {
         String s = board[11]+" | " + board[10]+" | " + board[9]+" | " + board[8]+" | " + board[7]+" | " + board[6];
         s+="\n" + board[0]+" | " + board[1]+" | " + board[2]+" | " + board[3]+" | " + board[4]+" | " + board[5];
-        s+="\n Player1: " + myPoints + ", Player2: " + enemyPoints + ", HEUR: " + this.getHeuristic() + ", Spieler" + (myTurn?"1":"2");
+        s+="\n AI: " + myPoints + ", ENEMY: " + enemyPoints + ", HEUR: " + this.getHeuristic() + ", Spieler" + (myTurn?"1":"2");
+
         return s;
 
     }
