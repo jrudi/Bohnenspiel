@@ -7,14 +7,14 @@ public class BohnenspielAI {
 
 	Random rand = new Random();
 	State current;
-	final static int DEPTH = 1;
+	final static int DEPTH = 2;
 	/**
 	* @param enemyIndex The index that refers to the field chosen by the enemy in the last action.If this value is 0, than the AI is the starting player and has to specify the first move.
 	* @return Return The index that refers to the field of the action chosen by this AI.
 	*/
 
 	public int getMove(int enemyIndex) {
-        if(enemyIndex == 0) {
+        if(enemyIndex == 0 || enemyIndex ==-1) {
             current = new State(true);
         }else {
             if (this.current == null) {
@@ -22,11 +22,14 @@ public class BohnenspielAI {
             }
             this.current = new State(this.current, enemyIndex - 1);
         }
-        return init();
+        return init()+1;
 	}
 
     public int max(State node,int depth,int a,int b){
         int v = Integer.MIN_VALUE;
+        if(depth==0){
+            return node.getHeuristic();
+        }
         for (State child : node.getChildren()) {
             v = Math.max(v, min(child, depth - 1, a, b));
             a = Math.max(a, v);
@@ -34,10 +37,14 @@ public class BohnenspielAI {
                 break;
             }
         }
+        System.out.println(v+" max");
         return v;
     }
     public int min(State node,int depth,int a,int b){
         int v = Integer.MAX_VALUE;
+        if(depth==0){
+            return node.getHeuristic();
+        }
         for (State child : node.getChildren()) {
             v = Math.min(v, max(child, depth - 1, a, b));
             b = Math.min(b, v);
@@ -45,6 +52,7 @@ public class BohnenspielAI {
                 break;
             }
         }
+        System.out.println(v + " min");
         return v;
     }
 
