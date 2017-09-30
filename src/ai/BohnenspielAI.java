@@ -23,7 +23,9 @@ public class BohnenspielAI {
             this.current = new State(this.current, enemyIndex - 1);
         }
         int result = init() + 1;
-        System.out.println(result);
+        this.current = new State(this.current,result);
+        System.out.println("MOVE: " + result);
+        System.out.println(this.current.toString());
         return result;
 	}
 
@@ -39,7 +41,7 @@ public class BohnenspielAI {
                 break;
             }
         }
-        System.out.println(v+" max");
+        //System.out.println(v+" max");
         return v;
     }
     public int min(State node,int depth,int a,int b){
@@ -54,7 +56,7 @@ public class BohnenspielAI {
                 break;
             }
         }
-        System.out.println(v + " min");
+        //System.out.println(v + " min");
         return v;
     }
 

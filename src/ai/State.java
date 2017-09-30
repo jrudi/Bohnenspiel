@@ -3,7 +3,7 @@ package ai;
 import java.util.ArrayList;
 
 public class State{
-	private int[] board;
+	 int[] board;
 	private boolean myTurn;
 	private boolean first;
 	private int myPoints,enemyPoints;
