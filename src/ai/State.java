@@ -35,7 +35,6 @@ public class State{
 	    this.board= parent.board.clone();
         this.myTurn=parent.myTurn;
         this.move(move);
-        this.myTurn=!this.myTurn;
         this.lastMove=move;
 
     }
