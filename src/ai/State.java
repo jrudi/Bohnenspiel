@@ -159,9 +159,33 @@ public class State{
      * @return
      */
     int getHeuristic() {
-     return myPoints-enemyPoints + (sumMyBeans()-sumEnemyBeans())/2;
+      int nullFeld =0;
+      int gewonnen =500;
+      int verloren =-500;
+      int start=first?6:0;
+      for(int i =start; i<this.board.length;i++){
+        if(board[i]==0){
+          nullFeld+=1;
+        }
+      }
+      if(this.isTerminal()){
+        
+      }
+     return  (sumMyBeans()-sumEnemyBeans())+nullFeld;
 
     }
+    
+  /*  int getHeuristic() {
+      int nichtNullFeld =0;
+      int start=first?0:6;
+      for(int i =start; i<this.board.length;i++){
+        if(board[i]!=0){
+          nichtNullFeld+=5;
+        }
+      }
+     return  myPoints-enemyPoints+myPoints+nichtNullFeld;
+
+    }*/
 
     /**
      * Erzeugt Kind-Knoten für alle möglichen Spielzüge des aktuellen Spielers
