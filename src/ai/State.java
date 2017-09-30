@@ -181,9 +181,10 @@ public class State{
 
         for (int i = 0; i < 100; i++) {
             System.out.println(s);
+            if(!s.isTerminal()){
             s.makeAllMoves();
           
-            if(!s.isTerminal()){
+          
             s = s.children.get(0);}
             System.out.println(i);
         }
