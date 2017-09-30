@@ -31,7 +31,7 @@ public class BohnenspielAI {
 
     public int max(State node,int depth,int a,int b){
         int v = Integer.MIN_VALUE;
-        if(depth==0){
+        if(depth==0 || node.isTerminal()){
             return node.getHeuristic();
         }
         for (State child : node.getChildren()) {
@@ -46,7 +46,7 @@ public class BohnenspielAI {
     }
     public int min(State node,int depth,int a,int b){
         int v = Integer.MAX_VALUE;
-        if(depth==0){
+        if(depth==0||node.isTerminal()){
             return node.getHeuristic();
         }
         for (State child : node.getChildren()) {
