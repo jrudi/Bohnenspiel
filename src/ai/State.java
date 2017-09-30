@@ -9,6 +9,7 @@ public class State{
 	private int myPoints,enemyPoints;
 	private State parent;
 	private ArrayList<State> children;
+	public int lastMove;
 
     /**
      * erzeugt ein State-Objekt im Startzustand
@@ -21,6 +22,7 @@ public class State{
 		first=f;
         board = new int[]{6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6};
         parent = null;
+        lastMove = -1;
 		}
 
     /**
@@ -28,7 +30,7 @@ public class State{
      * @param parent    Der Vorhergehende Zustand
      * @param move      Der Zug, der gemacht wurde (hier keine Überprüfung der Gültigkeit!
      */
-    private State(State parent, int move){
+    State(State parent, int move){
 	    this.myPoints=parent.myPoints;
 	    this.enemyPoints=parent.enemyPoints;
 	    this.first=parent.first;
@@ -37,6 +39,7 @@ public class State{
         this.myTurn=parent.myTurn;
         this.move(move);
         this.myTurn=!this.myTurn;
+        this.lastMove=move;
 
     }
 
@@ -78,6 +81,9 @@ public class State{
      * @return
      */
     ArrayList<State> getChildren() {
+        if(children==null){
+            this.makeAllMoves();
+        }
         return children;
     }
 
@@ -176,6 +182,7 @@ public class State{
 
     }
 
+    /*
     public static void main(String[] args){
         State s = new State(true);
 
@@ -188,6 +195,6 @@ public class State{
             s = s.children.get(0);}
             System.out.println(i);
         }
-    }
+    }*/
 }
 
