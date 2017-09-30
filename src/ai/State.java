@@ -86,6 +86,10 @@ public class State{
         return children;
     }
 
+    int getPointDifference(){
+        return this.myPoints-this.enemyPoints;
+    }
+
     /**
      * gibt die Summe der noch verbleibenden Bohnen zurück
      * TODO summe ist eigentlich auch nur 72-myScore-enemyScore
@@ -105,10 +109,19 @@ public class State{
      */
     boolean isTerminal() {
       boolean terminal =  this.myTurn && this.sumMyBeans()==0 || !this.myTurn && this.sumEnemyBeans()==0;
-      //System.out.println("Am Zug:"+this.myTurn+" | Verfuegbare Bohnen:"+this.sumMyBeans()+" | Gegnerische Verfuegbare Bohnen:" +this.sumEnemyBeans()+" | Summe der Bohnen auf dem Feld: "+this.getSum()+" | Spiel beendet:"+terminal);
-      //System.out.println();
+
         return terminal;
     }
+
+     void transferFinalPoints(){
+        if(this.isTerminal()){
+            if(this.myTurn&&this.sumMyBeans()==0){
+                 enemyPoints+=sumEnemyBeans();
+             }else{
+                myPoints+=sumMyBeans();
+            }
+         }
+     }
 
     /**
      * Summe der Bohnen auf den eigenen Spielfeldern
@@ -176,7 +189,7 @@ public class State{
     public String toString() {
         String s = board[11]+" | " + board[10]+" | " + board[9]+" | " + board[8]+" | " + board[7]+" | " + board[6];
         s+="\n" + board[0]+" | " + board[1]+" | " + board[2]+" | " + board[3]+" | " + board[4]+" | " + board[5];
-        s+="\n AI: " + myPoints + ", ENEMY: " + enemyPoints + ", HEUR: " + this.getHeuristic() + ", Spieler" + (myTurn?"1":"2");
+        s+="\nAI: " + myPoints + ", ENEMY: " + enemyPoints + ", HEUR: " + this.getHeuristic() + ", Spieler" + (myTurn?"1":"2");
 
         return s;
 
