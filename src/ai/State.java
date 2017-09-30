@@ -33,7 +33,7 @@ public class State{
 	    this.enemyPoints=parent.enemyPoints;
 	    this.first=parent.first;
 	    this.board= parent.board.clone();
-        this.myTurn=parent.myTurn;
+        this.myTurn=!parent.myTurn;
         this.move(move);
         this.lastMove=move;
 

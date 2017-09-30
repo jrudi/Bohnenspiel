@@ -22,11 +22,11 @@ public class BohnenspielAI {
             }
             this.current = new State(this.current, enemyIndex - 1);
         }
-        int result = init() + 1;
+        int result = init();
         this.current = new State(this.current,result);
         System.out.println("MOVE: " + result);
         System.out.println(this.current.toString());
-        return result;
+        return result+1;
 	}
 
     public int max(State node,int depth,int a,int b){
