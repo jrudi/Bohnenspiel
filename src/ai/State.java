@@ -162,43 +162,44 @@ public class State {
   }
 
   /**
-   * gibt den Wert der Heuristik fÃ¼r den aktuellen Spielzustand zurÃ¼ck TODO keine Ahnung ob das ne
-   * sinvolle Heuristik ist
-   * 
+   * gibt den Wert der Heuristik fÃ¼r den aktuellen Spielzustand zurueck
+   * startGegner/start speichert welcher Teil des Feldes der KI gehört
+   * nullFeld wird erhöht wenn der Gegner ein Feld ohne Bohnen hat
+   * nichtNullFeld
    * @return
    */
 
-  // Aushungern
+  
   int getHeuristic() {
-    int nullFeld = 0;
-    int nichtNullFeld = 0;
+    int nullFeldGegner = 0;
+    int nullFeldKI = 0;
     int startGegner = first ? 6 : 0;
     int start = first ? 0 : 6;
 
     // Eigenes Feld ueberwachen
     for (int i = start; i < this.board.length; i++) {
       if (board[i] == 0) {
-        nichtNullFeld += 5;
+        nullFeldKI += 5;
       }
     }
 
     // Gegner Feld ueberwachen
     for (int i = startGegner; i < this.board.length; i++) {
       if (board[i] == 0) {
-        nullFeld += 5;
+        nullFeldGegner += 5;
       }
     }
     // Wenn KI beginnt und eigenes Feld aushungert
-    if (startGegner == 0 && nichtNullFeld >= 15) {
-      return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeld + nichtNullFeld;
+    if (startGegner == 0 && nullFeldKI >= 15) {
+      return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeldGegner + nullFeldKI;
     }
     // Wenn KI beginnt
     else if (startGegner == 0) {
-      return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeld;
+      return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeldGegner;
     }
     // Gegner beginnt und eigenes Feld hungert aus.
-    else if (nichtNullFeld >= 15) {
-      return myPoints + 72 - enemyPoints * 2 + nichtNullFeld;
+    else if (nullFeldKI >= 15) {
+      return myPoints + 72 - enemyPoints * 2 +nullFeldKI;
     }
     // Gegner beginnt
     else {
