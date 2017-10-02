@@ -167,33 +167,45 @@ public class State {
    * 
    * @return
    */
- 
+
   // Aushungern
   int getHeuristic() {
     int nullFeld = 0;
     int nichtNullFeld = 0;
-    int start = first ? 6 : 0;
-    int start1 = first ? 6 : 0;
-    for (int i = start1; i < this.board.length; i++) {
+    int startGegner = first ? 6 : 0;
+    int start = first ? 0 : 6;
+
+    // Eigenes Feld ueberwachen
+    for (int i = start; i < this.board.length; i++) {
       if (board[i] == 0) {
-        nichtNullFeld += 3;
+        nichtNullFeld += 5;
       }
     }
-    for (int i = start; i < this.board.length; i++) {
+
+    // Gegner Feld ueberwachen
+    for (int i = startGegner; i < this.board.length; i++) {
       if (board[i] == 0) {
         nullFeld += 5;
       }
     }
-    if (start == 0 && nichtNullFeld >= 9) {
+    // Wenn KI beginnt und eigenes Feld aushungert
+    if (startGegner == 0 && nichtNullFeld >= 15) {
       return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeld + nichtNullFeld;
-    } else if (start == 0) {
-      return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeld;
-    } else if (nichtNullFeld >= 9) {
-      return myPoints + 72 - enemyPoints * 2 + nichtNullFeld;
-    } else {
-      return myPoints + 72 - enemyPoints * 2 + nullFeld;
     }
-  } 
+    // Wenn KI beginnt
+    else if (startGegner == 0) {
+      return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeld;
+    }
+    // Gegner beginnt und eigenes Feld hungert aus.
+    else if (nichtNullFeld >= 15) {
+      return myPoints + 72 - enemyPoints * 2 + nichtNullFeld;
+    }
+    // Gegner beginnt
+    else {
+      return myPoints + 72 - enemyPoints * 2;
+    }
+
+  }
 
   /**
    * Erzeugt Kind-Knoten für alle möglichen Spielzüge des aktuellen Spielers
