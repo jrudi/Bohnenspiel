@@ -191,7 +191,7 @@ public class State {
     }
     // Wenn KI beginnt und eigenes Feld aushungert
     if (startGegner == 0 && nullFeldKI >= 15) {
-      return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeldGegner + nullFeldKI;
+      return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeldGegner - nullFeldKI;
     }
     // Wenn KI beginnt
     else if (startGegner == 0) {
@@ -199,7 +199,7 @@ public class State {
     }
     // Gegner beginnt und eigenes Feld hungert aus.
     else if (nullFeldKI >= 15) {
-      return myPoints + 72 - enemyPoints * 2 +nullFeldKI;
+      return myPoints + 72 - enemyPoints * 2 -nullFeldKI;
     }
     // Gegner beginnt
     else {
