@@ -71,7 +71,7 @@ public class BohnenspielAI {
         ArrayList<Integer> val = new ArrayList<>();
         int maxval = Integer.MIN_VALUE;
         int i=-1;
-        if(Math.random()>0.97){
+        if(Math.random()>0.99){
             System.out.println("*");
             return list.get((int)(Math.random()*list.size())).lastMove;
         }

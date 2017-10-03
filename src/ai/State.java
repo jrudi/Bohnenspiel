@@ -162,24 +162,29 @@ public class State {
   }
 
   /**
-   * gibt den Wert der Heuristik fÃ¼r den aktuellen Spielzustand zurueck startGegner/start speichert
-   * welcher Teil des Feldes der KI gehört nullFeld wird erhöht wenn der Gegner ein Feld ohne Bohnen
-   * hat nichtNullFeld
-   * 
+   * gibt den Wert der Heuristik fÃ¼r den aktuellen Spielzustand zurueck
+   * startGegner/start speichert welcher Teil des Feldes der KI gehört
+   * nullFeld wird erhöht wenn der Gegner ein Feld ohne Bohnen hat
+   * nichtNullFeld
    * @return
    */
 
-
+  
   int getHeuristic() {
     int nullFeldGegner = 0;
     int nullFeldKI = 0;
+    int hohesFeldGegner = 0;
+    int hohesFeldKI = 0;
     int startGegner = first ? 6 : 0;
     int start = first ? 0 : 6;
+
 
     // Eigenes Feld ueberwachen
     for (int i = start; i < start+6; i++) {
       if (board[i] == 0) {
         nullFeldKI += 5;
+      }else if(board[i]>12){
+          hohesFeldKI+=5;
       }
     }
 
@@ -187,26 +192,31 @@ public class State {
     for (int i = startGegner; i < startGegner+6; i++) {
       if (board[i] == 0) {
         nullFeldGegner += 5;
+      }else if(board[i]>12){
+          hohesFeldGegner+=5;
       }
     }
-    // Wenn KI beginnt und eigenes Feld aushungert
-    if (startGegner == 0) {
-      if (nullFeldKI >= 15) {
-        return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeldGegner - nullFeldKI;
-      }
-      // Wenn KI beginnt
-      else {
-        return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeldGegner;
-      }
+    double sum = sumMyBeans()+sumEnemyBeans();
+    sum= sum==0?36:sum;
+    sum = 10*sumMyBeans()/sum;
+    return (myPoints-enemyPoints)+(int)sum;
+    /*// Wenn KI beginnt und eigenes Feld aushungert
+    if (startGegner == 0 && nullFeldKI >= 15) {
+      return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeldGegner - nullFeldKI;
+    }
+    // Wenn KI beginnt
+    else if (startGegner == 0) {
+      return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeldGegner;
     }
     // Gegner beginnt und eigenes Feld hungert aus.
     else if (nullFeldKI >= 15) {
-      return myPoints + 72 - enemyPoints * 2 - nullFeldKI;
+      return myPoints + 72 - enemyPoints * 2 -nullFeldKI;
     }
     // Gegner beginnt
     else {
       return myPoints + 72 - enemyPoints * 2;
-    }
+    }*/
+
 
   }
 
@@ -236,20 +246,11 @@ public class State {
         + board[7] + " | " + board[6];
     s += "\n" + board[0] + " | " + board[1] + " | " + board[2] + " | " + board[3] + " | " + board[4]
         + " | " + board[5];
-    s += "\nAI: " + myPoints + ", ENEMY: " + enemyPoints + ", HEUR: " + this.getHeuristic()
-        + ", Spieler" + (myTurn ? "1" : "2");
+    s += "\nAI: " + myPoints + ", ENEMY: " + enemyPoints + ", HEUR: " + this.getHeuristic();
 
     return s;
 
   }
 
-  /*
-   * public static void main(String[] args){ State s = new State(true);
-   * 
-   * for (int i = 0; i < 100; i++) { System.out.println(s); if(!s.isTerminal()){ s.makeAllMoves();
-   * 
-   * 
-   * s = s.children.get(0);} System.out.println(i); } }
-   */
 }
 
