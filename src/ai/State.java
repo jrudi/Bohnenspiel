@@ -171,54 +171,11 @@ public class State {
 
   
   int getHeuristic() {
-    int nullFeldGegner = 0;
-    int nullFeldKI = 0;
-    int hohesFeldGegner = 0;
-    int hohesFeldKI = 0;
-    int startGegner = first ? 6 : 0;
-    int start = first ? 0 : 6;
-
-
-    // Eigenes Feld ueberwachen
-    for (int i = start; i < start+6; i++) {
-      if (board[i] == 0) {
-        nullFeldKI += 5;
-      }else if(board[i]>12){
-          hohesFeldKI+=5;
-      }
-    }
-
-    // Gegner Feld ueberwachen
-    for (int i = startGegner; i < startGegner+6; i++) {
-      if (board[i] == 0) {
-        nullFeldGegner += 5;
-      }else if(board[i]>12){
-          hohesFeldGegner+=5;
-      }
-    }
     double sum = sumMyBeans()+sumEnemyBeans();
     sum= sum==0?36:sum;
     sum = 10*sumMyBeans()/sum;
     return (myPoints-enemyPoints)+(int)sum;
-    /*// Wenn KI beginnt und eigenes Feld aushungert
-    if (startGegner == 0 && nullFeldKI >= 15) {
-      return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeldGegner - nullFeldKI;
-    }
-    // Wenn KI beginnt
-    else if (startGegner == 0) {
-      return myPoints + (sumMyBeans() - sumEnemyBeans()) + nullFeldGegner;
-    }
-    // Gegner beginnt und eigenes Feld hungert aus.
-    else if (nullFeldKI >= 15) {
-      return myPoints + 72 - enemyPoints * 2 -nullFeldKI;
-    }
-    // Gegner beginnt
-    else {
-      return myPoints + 72 - enemyPoints * 2;
-    }*/
-
-
-  }
+ }
 
   /**
    * Erzeugt Kind-Knoten für alle möglichen Spielzüge des aktuellen Spielers
