@@ -36,6 +36,7 @@ public class BohnenspielAI {
             return node.getHeuristic();
         }else if(node.isTerminal()){
             node.transferFinalPoints();
+            //System.out.println("TERMINAL: " + (node.ctr-current.ctr));
             return node.getPointDifference()>0?500:-500;
 
         }

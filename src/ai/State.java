@@ -1,6 +1,7 @@
 package ai;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class State {
   int[] board;
@@ -114,8 +115,7 @@ public class State {
    */
   boolean isTerminal() {
     boolean terminal =
-        this.myTurn && this.sumMyBeans() == 0 || !this.myTurn && this.sumEnemyBeans() == 0;
-
+            myPoints >36 || enemyPoints>36 || this.myTurn && this.sumMyBeans() == 0 || !this.myTurn && this.sumEnemyBeans() == 0 ;
     return terminal;
   }
 
@@ -233,6 +233,14 @@ public class State {
       }
     }
   }
+
+  /*boolean isAbortable(){
+      if(sumMyBeans()==2){
+          String regex  = this.first?"[1,0,0,0,0,1,.*]":"[.*,1,0,0,0,0,1]";
+          return Arrays.toString(this.board).matches(regex);
+      }
+      return false;
+  }*/
 
   /**
    * gibt das Spielfeld in String-form zurück Sieht ungefähr so aus: 6 | 6 | 6 | 6 | 6 | 7 0 | 7 |
