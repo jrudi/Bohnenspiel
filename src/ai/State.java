@@ -11,9 +11,10 @@ public class State {
   private ArrayList<State> children;
   public int lastMove, ctr;
 
-  /**
-   * erzeugt ein State-Objekt im Startzustand TODO Spieler1 oder Spieler2 festlegen
-   */
+    /**
+     * Erzeugt ein neues Spielfeld im Anfangszustand
+     * @param f Bei true beginnt die AI, bei false der Gegner
+     */
   State(boolean f) {
     myPoints = 0;
     enemyPoints = 0;
@@ -59,7 +60,7 @@ public class State {
 
     // Die Schleife geht rückwärts durch alle Felder und schaut ob die Bohnen entnommen werden
     // können
-    // Wenn ja, werden die Bohnen auf das zugeghörige Konto übertragen und das Feld auf 0 gesetzt
+    // Wenn ja, werden die Bohnen auf das zugeghoerige Konto übertragen und das Feld auf 0 gesetzt
     // Beachte: -3%12==-3, Math.floorMod(-3,12)==9
 
     while (true) {
@@ -79,7 +80,7 @@ public class State {
   }
 
   /**
-   * gibt die Liste der möglichen Kind-Knoten zurück
+   * gibt die Liste der moeglichen Kind-Knoten zurück
    * 
    * @return
    */
@@ -90,13 +91,17 @@ public class State {
     return children;
   }
 
+
+    /**
+     *
+     * @return Punktedifferenz AI-Gegner
+     */
   int getPointDifference() {
     return this.myPoints - this.enemyPoints;
   }
 
   /**
-   * gibt die Summe der noch verbleibenden Bohnen zurück TODO summe ist eigentlich auch nur
-   * 72-myScore-enemyScore
+   * gibt die Summe der noch verbleibenden Bohnen zurueck
    * 
    * @return
    */
@@ -110,7 +115,7 @@ public class State {
 
   /**
    * Zeigt an, ob Spiel fertig ist
-   * 
+   * Gibt auch True zur�ck, wenn noch Z�ge m�glich sind, aber ein Spieler mehr als 36 Punkte erreicht hat
    * @return
    */
   boolean isTerminal() {
@@ -119,7 +124,11 @@ public class State {
     return terminal;
   }
 
-  void transferFinalPoints() {
+
+    /**
+     * �bertr�gt bei einem terminierenden Spielfeld die restlichen Bohnen auf das jeweilige Punktekonto
+     */
+    void transferFinalPoints() {
     if (this.isTerminal()) {
       if (this.myTurn && this.sumMyBeans() == 0) {
         enemyPoints += sumEnemyBeans();
@@ -162,11 +171,9 @@ public class State {
   }
 
   /**
-   * gibt den Wert der Heuristik für den aktuellen Spielzustand zurueck
-   * startGegner/start speichert welcher Teil des Feldes der KI geh�rt
-   * nullFeld wird erh�ht wenn der Gegner ein Feld ohne Bohnen hat
-   * nichtNullFeld
-   * @return
+   * Berechnet den aktuellen Wert der Heuristik fuer den aktuellen Spielzustand zurueck
+   *
+   * @return Den Wert der Heuristikfunktion
    */
 
   
@@ -200,8 +207,10 @@ public class State {
   }*/
 
   /**
-   * gibt das Spielfeld in String-form zurück Sieht ungefähr so aus: 6 | 6 | 6 | 6 | 6 | 7 0 | 7 |
-   * 7 | 7 | 7 | 7 Player1: 0, Player2: 0, HEUR: 1
+   * gibt das Spielfeld in String-form zurück Sieht ungefähr so aus:
+   * 6 | 6 | 6 | 6 | 6 | 7
+   * 0 | 7 | 7 | 7 | 7 | 7
+   * Player1: 0, Player2: 0, HEUR: 1
    * 
    * @return
    */

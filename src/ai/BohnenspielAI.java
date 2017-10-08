@@ -30,6 +30,14 @@ public class BohnenspielAI {
         return result+1;
 	}
 
+    /**
+     * Max Methode der Min-Max-Suche, findet den maximalen Wert für alle möglichen Züge und ruft auf diesen Knoten min() auf
+     * @param node  der zu untersuchende Knoten
+     * @param depth die noch zu bestreitende Suchtiefe
+     * @param a das bisherige alpha
+     * @param b das bisherige beta
+     * @return der maximierte Wert
+     */
     public int max(State node,int depth,int a,int b){
         int v = Integer.MIN_VALUE;
         if(depth==0){
@@ -49,6 +57,15 @@ public class BohnenspielAI {
         }
         return v;
     }
+
+/**
+ * Min Methode der Min-Max-Suche, findet den minimalen Wert für alle möglichen Züge und ruft auf diesen Knoten max() auf
+ * @param node  der zu untersuchende Knoten
+ * @param depth die noch zu bestreitende Suchtiefe
+ * @param a das bisherige alpha
+ * @param b das bisherige beta
+ * @return der minimierte Wert
+ */
     public int min(State node,int depth,int a,int b){
         int v = Integer.MAX_VALUE;
         if(depth==0){
@@ -66,6 +83,13 @@ public class BohnenspielAI {
         }
         return v;
     }
+
+    /**
+     * Initiiert die Min-Max-Suche, indem die möglichen Züge als States in eine Liste eingefügt werden. Danach wird auf jedem max() aufgerufen.
+     * Parallel dazu gibt es eine Liste, in die am gleichen Index das Ergebnis von max() eingetragen wird.
+     * Zuletzt werden die Werte verglichen und der Zug mit dem Index des Maximums wird gewählt.
+     * @return Zahl zwischen 0 und 11, steht für den zu wählenden Zug
+     */
 
     public int init(){
         ArrayList<State> list = current.getChildren();
